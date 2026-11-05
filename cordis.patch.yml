@@ -5,7 +5,7 @@
       config:
         id: chat-first
         name: 先聊后做 / Chat First
-        description: 默认先讨论；同一会话点“开始执行”开放标准工具，点“继续讨论”关闭工具。
+        description: 聊到重点，再动手。默认讨论不调用工具，少重复计划与开工邀请；同一会话可随时切换讨论与执行。
         order: 2
         plugins:
           - id: persona

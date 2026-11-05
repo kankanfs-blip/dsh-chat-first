@@ -1,26 +1,17 @@
-# Chat First: fewer wrong turns, less rework
+# Chat First 0.1.0
 
-[简体中文](COMMUNITY_POST.zh-CN.md)
+**Tired of another plan, another recap and another “shall I start?” Close tools, talk it through, then act.**
 
-**“Quick to act. A beat behind on judgment.”**
+DSH can be quick on a clear task, yet open conversations sometimes need too much management. Chat First keeps discussion and execution in one conversation.
 
-This describes an occasional wrong turn, not a rejection of initiative. We value agents that explore and seek better solutions. Use the switch when you have doubts or want to talk things through; once the goal is clear, let the agent move forward independently without seeking approval at every step.
+Especially useful when you are new to DSH: choose “talk” or “work” without first learning control prompts.
 
-You are still asking whether an idea is feasible—or whether there is a better approach—while your agent is already reading files and running commands. Halfway through, you discover a wrong assumption and start over. That costs time and tokens.
+Discussion closes tools. Instructions favor direct replies over repeated background, plans and invitations to execute. Brainstorming can still be deep, speculative and independent. Enable tools to research, close them to discuss the findings, then act on the decision. Keep initiative without per-step approval.
 
-Meet **Chat First**, a small DSH plugin:
+`0.1.0` retains alpha's core mechanism, whose minimum loop passed on Windows and Mac. Revised discussion instructions passed Windows core and installed-host offline protocol checks; their conversational effect has not been measured in a controlled model comparison. No fixed reply length, time or token saving is promised. Compatibility remains **DSH 0.2.1-rc.5 only**.
 
-- Discuss first, with instructions to briefly explain the understood goal, feasibility and key limits.
-- Agree on the direction, click **Start working**, then send the task.
-- Need to rethink? Stop the current turn and click **Discuss again**.
-- Keep the same conversation and context throughout.
+In Desktop's plugin manager, add npm source `dsh-chat-first@0.1.0`. Start a **Chat First** conversation and use the header toggle.
 
-Discussion actually closes the tool channel. Execution uses your existing DSH tools. The button changes mode without sending a message or starting work. No extra model, API key or GPU is required. Main buttons and status labels support Chinese and English.
+[Source](https://github.com/kankanfs/dsh-chat-first) · [Install](https://github.com/kankanfs/dsh-chat-first/blob/main/INSTALL.en.md) · [Downloads](https://github.com/kankanfs/dsh-chat-first/releases) · [Validation](https://github.com/kankanfs/dsh-chat-first/blob/main/VALIDATION.en.md)
 
-**Less wasted work can mean fewer wasted tokens.** No fixed saving is promised. Clear, small tasks can proceed directly; simple questions get direct answers, without a long approval ritual.
-
-The boundary matters: code gates tools, while instructions guide the model to explain its judgment. Correct judgments are not guaranteed. Host permissions still apply; returning to discussion does not undo completed work or stop independent background jobs.
-
-Current version: **0.0.1-alpha.1 early preview**, declaring compatibility only with **DSH 0.2.1-rc.5**. Minimum acceptance passed on one Windows PC and one M5 MacBook Air, including actual tool calls, same-conversation switching and a full quit/relaunch. Linux remains untested. Both platforms passing does not automatically promote this alpha to 1.0; see [validation scope](VALIDATION.en.md).
-
-MIT licensed. [Source](https://github.com/kankanfs/dsh-chat-first) · [Releases/downloads](https://github.com/kankanfs/dsh-chat-first/releases) · [Installation](INSTALL.en.md). The release page lists actual downloadable versions; its GitHub source can be used before npm availability. A demo will follow PC installation acceptance.
+MIT. No extra model, GPU or key.

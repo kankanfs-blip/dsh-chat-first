@@ -2,7 +2,7 @@
 
 [简体中文](MAC-SETUP.md) · [Ordinary installation](INSTALL.en.md)
 
-Goal: install the independent candidate and switch between discussion and execution in one DSH conversation. Do not migrate Windows credentials, sessions or profiles.
+Goal: install or update public version 0.1.0 and switch between discussion and execution in one DSH conversation. Do not migrate Windows credentials, sessions or profiles.
 
 Try the ordinary installation path first. Preserve actual errors and fix the distribution rather than patching a profile to hide an installation failure. Other users should not need Codex to use the plugin.
 
@@ -14,7 +14,7 @@ Try the ordinary installation path first. Preserve actual errors and fix the dis
 
 ## Install in Desktop
 
-If **Plugins → Add plugin** provides a local-directory/source option, select the unpacked folder. Otherwise establish the supported local-path/tarball format. After npm publication, also verify installation using the actual public package name.
+Prefer Desktop installation/update using `dsh-chat-first@0.1.0`; use `https://registry.npmjs.org/` if a mirror has not synced. Unpacked source is needed only for local development or diagnosis.
 
 Do not treat `dsh plugin --profile web ...` as desktop installation. Do not replace the entire desktop profile or its manifest/patch. If blocked, inspect the installed host's plugin-manager documentation and supported transaction interface; report a specific unresolved installation obstacle when evidence is insufficient.
 

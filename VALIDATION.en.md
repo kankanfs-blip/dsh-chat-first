@@ -2,11 +2,11 @@
 
 [简体中文](VALIDATION.md)
 
-Date: 2026-10-30. Current candidate: 0.0.1-alpha.1. Target host: DSH 0.2.1-rc.5.
+Date: 2026-11-05. Current version: 0.1.0. Target host: DSH 0.2.1-rc.5.
 
 Version policy: early preview. Consider 1.0 only after both PC and Mac pass installation, same-conversation mode switching, a real tool call and state persistence across restart. Platform-condition checks or results from the original private plugin do not count as that acceptance.
 
-The component/isolated Web checks below were completed for unpublished internal rc.1. Internal rc.2 added bilingual materials and response instructions, and passed core regression. This alpha aligns early versioning, public metadata and documentation; runtime code is identical to internal rc.2. Real PC acceptance is listed separately below. Complex-task judgment quality and token savings remain unverified.
+The component/isolated Web checks below were completed for unpublished internal rc.1. Internal rc.2 added bilingual materials and response instructions, and passed core regression. Historical alpha aligned early versioning, public metadata and documentation, retaining internal rc.2 runtime code. Live platform acceptance and 0.1.0 checks are listed separately below. Complex-task judgment quality and token savings remain unverified.
 
 ## Completed evidence
 
@@ -44,6 +44,13 @@ This is minimum acceptance on one Windows PC, one host version and one model. Th
 - Windows review independently checked all 15 handoff-file SHA256 values, both raw tool outputs against expected files, mode files and process evidence. These support the limited conclusion above. Raw records stay private; conversation identifiers, user paths and process logs are not uploaded.
 
 Both platform minimum loops have now passed; the version remains alpha. This does not certify every tool, model, complex-task judgment or long-term stability. English controls were used on Mac, without a complete English-experience acceptance run. No source, installed-package or profile patch was used, and business files were untouched.
+
+## 2026-11-05: 0.1.0 release checks
+
+- Changes are limited to discussion/execution instructions, preset description and release documentation. Tool gates, client, state storage and native declaration-baseline logic are retained from alpha.
+- Windows `npm test` passed. Offline regression against installed DSH 0.2.1-rc.5 passed: reproduce the all-deferred failure, then verify repeated mode switches, host-event gates and capability notices in final serialized requests. HTTP is mocked; this is not a live model test.
+- The two-platform live conversation evidence dated 2026-10-30 above belongs to alpha's mechanism acceptance. It is not a fresh two-platform live-model acceptance of 0.1.0. No controlled evidence yet establishes the revised wording's effect on verbosity or token savings.
+- Preset/service identity and data format remain unchanged, with no state migration. This first regular 0.x release does not widen host-version compatibility.
 
 ## Pending
 
