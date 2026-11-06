@@ -12,7 +12,8 @@ async function main() {
   const req = createRequire(process.resourcesPath + '/app.asar/dsh/node_modules/@deepseek-ai/dsh-llm/lib/index.js')
   const load = name => import(pathToFileURL(req.resolve('@deepseek-ai/' + name)).href)
   const installed = JSON.parse(fs.readFileSync(path.join(path.dirname(req.resolve('@deepseek-ai/dsh-typert-protocol')),'..','package.json'),'utf8')).version
-  assert.equal(installed,'0.2.1-rc.5','validate the native protocol version before claiming compatibility')
+  const declared = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url))).engines.dsh
+  assert.ok(declared.split(' || ').includes(installed), 'verify a declared native protocol version')
   const [{ Session, canonicalHeader }, llm, { DeepSeekAdapter, resolveAdapterOptions }, { Context }, { default: Registry }, { default: Controller }, prompt] = await Promise.all([
     load('dsh-session'), load('dsh-llm'), load('dsh-llm-deepseek'), load('cordis'), load('dsh-typert-registry'), import('../index.mjs'), load('dsh-system-prompt'),
   ])
@@ -70,7 +71,15 @@ async function main() {
     ctx = new Context()
     await ctx.plugin(Registry)
     await ctx.plugin(prompt.SystemPrompt, {})
-    ctx.systemPrompt.tools(() => ({ schemas: tools }))
+    const stepAdmission = installed === '0.2.2-rc.1'
+    if (stepAdmission) {
+      const { ToolsService, projectToolSchema } = await load('dsh-tools')
+      await ctx.plugin(ToolsService, {})
+      ctx.tools.setExecutor({ describe: definitions => ({ schemas: definitions.map(definition => projectToolSchema(definition, true)) }) })
+      for (const schema of tools) ctx.tools.register({ ...schema, output: { schema: { type: 'string' }, render: () => [] } })
+    } else {
+      ctx.systemPrompt.tools(() => ({ schemas: tools }))
+    }
     const agent = { id: session.id, session, status: 'idle' }
     ctx.provide('agents', new Map([[agent.id, agent]]))
     ctx.provide('sessionProjections', { stateOf: s => s === session ? 'chat-first' : 'standard' })
@@ -79,11 +88,21 @@ async function main() {
     const normal = { id:'normal', session:new Session('normal-probe'), status:'idle' }
     const child = { id:'child', session:new Session('child-probe'), parentAgent:agent, status:'idle' }
     ctx.agents.set(normal.id,normal)
+    const assemble = async who => {
+      const toolSet = stepAdmission ? await ctx.tools.resolve({ agent: who, signal: new AbortController().signal }) : undefined
+      try {
+        return await ctx.systemPrompt.assemble({ agent: who, scope: who, toolSet })
+      } finally {
+        toolSet?.dispose()
+      }
+    }
     assert.equal(controller.get(normal.id).available,false)
     const admitted = who => ctx.waterfall('tools/pre-execute', {agent:who}, () => ({kind:'allow'}))
     assert.equal((await admitted(agent)).kind,'deny')
     assert.equal((await admitted(normal)).kind,'allow')
     assert.equal((await admitted(child)).kind,'deny')
+    assert.equal((await assemble(normal)).tools.length, tools.length)
+    assert.equal((await assemble(child)).tools.length, 0)
     await assert.rejects(Promise.resolve().then(() => ctx.waterfall('tools/execute',{agent},()=>true)))
     agent.status='running'
     assert.throws(()=>controller.set(agent.id,'execute'))
@@ -93,17 +112,18 @@ async function main() {
       controller.set(agent.id, mode)
       assert.equal((await admitted(agent)).kind, mode === 'execute' ? 'allow' : 'deny')
       assert.equal((await admitted(child)).kind, mode === 'execute' ? 'allow' : 'deny')
-      const assembly = await ctx.systemPrompt.assemble({ agent })
+      const assembly = await assemble(agent)
       const sections = prompt.renderContextSections(ctx.systemPrompt.refreshContext(assembly, { agent }))
       const snapshot = prompt.joinContextSections(sections)
       assert.match(snapshot, /程序提供的本轮能力状态/)
       assert.notEqual(snapshot, previousNotice, 'each admitted request gets a fresh state snapshot')
       previousNotice = snapshot
-      assert.match(snapshot, mode === 'execute' ? /本轮提供 2 个工具/ : /现在不能执行/)
+      assert.match(snapshot, mode === 'execute' ? /当前：执行状态/ : /现在不能执行/)
       const notice = llm.createUserMessage({ source: { kind: 'runtime-context', form: 'snapshot', sections }, content: [{ type: 'text', text: snapshot }] })
       const decision = await ctx.waterfall('agent/pre-step', { agent }, async () => ({ kind: 'enter', messages: [user] }))
       assert.equal(decision.startsRequestSeries === true, mode !== (records.at(-1).mode ?? 'broken'))
-      const active = mode === 'execute' ? tools : []
+      const active = assembly.tools
+      assert.equal(active.length, mode === 'execute' ? tools.length : 0)
       session.append('request/header', { header: header(active), reason: decision.startsRequestSeries ? 'series' : 'change', ...(decision.startsRequestSeries ? { startsSeries: true } : {}) })
       const seq = session.seq
       await send('in-history', active, notice)

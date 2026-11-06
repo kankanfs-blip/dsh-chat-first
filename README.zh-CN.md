@@ -26,12 +26,12 @@ DSH 接到明确任务时很利落，开放聊天时，却容易铺背景、列�
 
 ## 安装或升级
 
-**当前版本 `0.1.0`，仅声明兼容 DSH `0.2.1-rc.5`。** 这是 alpha 双端最小验收后的首个常规 0.x 发布，沿用核心机制，调整回复指令。完整证据和边界见[验证范围](VALIDATION.md)。
+**当前版本 `0.1.1`，仅声明兼容 DSH `0.2.2-rc.1`。** 这版适配 DSH 升级后的工具接口。仍使用 DSH 0.2.1-rc.5 的用户可继续用插件 0.1.0。完整证据和边界见[验证范围](VALIDATION.md)。
 
 DSH 桌面版打开 **插件 → 添加插件 → 安装第三方插件**：
 
-- npm 来源：`dsh-chat-first@0.1.0`
-- GitHub 来源：`github:kankanfs/dsh-chat-first#v0.1.0`
+- npm 来源：`dsh-chat-first@0.1.1`
+- GitHub 来源：`github:kankanfs/dsh-chat-first#v0.1.1`
 - [发布与下载](https://github.com/kankanfs/dsh-chat-first/releases)
 
 镜像尚未同步时，可自定义源为 `https://registry.npmjs.org/`。已安装者通过桌面插件管理器更新同一个插件即可，不必删除会话状态；按提示重启 DSH。详见[安装与回退](INSTALL.md)。
@@ -53,8 +53,8 @@ DSH 桌面版打开 **插件 → 添加插件 → 安装第三方插件**：
 
 ## 兼容与数据
 
-- alpha 在一台 Windows PC 和一台 M5 MacBook Air 通过最小闭环：讨论→真实工具调用→讨论→完整退出重开后再次真实调用。0.1.0 在 Windows 通过核心与安装版宿主离线协议回归；新措辞尚未做受控的真实模型效果对照。
-- 兼容范围仍为 DSH `0.2.1-rc.5`；Linux 及其他宿主版本待验证。
+- alpha 在一台 Windows PC 和一台 M5 MacBook Air 通过最小闭环：讨论→真实工具调用→讨论→完整退出重开后再次真实调用。0.1.1 在 Windows 的 DSH 0.2.2-rc.1 通过离线协议和隔离界面检查。
+- 兼容范围仍为 DSH `0.2.2-rc.1`；Linux 及其他宿主版本待验证。
 - 独立 `chat-first` 预设、`chatFirstMode` 服务，不占用 `qa` 或 `standard`。
 - 模式文件按会话保存在 `$DSH_HOME/plugins/dsh-chat-first/sessions/`，默认 `~/.dsh/plugins/dsh-chat-first/sessions/`。文件仅有版本和模式，文件名编码会话标识；缺失或损坏时默认讨论，卸载保留状态。
 - 切回讨论不撤销已完成操作，也不停止独立后台作业。宿主权限仍适用。

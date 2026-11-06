@@ -2,7 +2,9 @@
 
 [简体中文](VALIDATION.md)
 
-Date: 2026-11-05. Current version: 0.1.0. Target host: DSH 0.2.1-rc.5.
+Date: 2026-11-06. Current version: 0.1.1. Target host: DSH 0.2.2-rc.1.
+
+Windows checks passed against the installed 0.2.2-rc.1 tool admission and request protocol, plus discuss → work → discuss in an isolated Web UI. The earlier results below document 0.1.0 and alpha on the previous host. No fresh Mac validation has been performed on the new host.
 
 Version policy: early preview. Consider 1.0 only after both PC and Mac pass installation, same-conversation mode switching, a real tool call and state persistence across restart. Platform-condition checks or results from the original private plugin do not count as that acceptance.
 

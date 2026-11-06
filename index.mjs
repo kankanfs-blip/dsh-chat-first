@@ -26,10 +26,29 @@ export default class ChatFirst extends TypertRemoteService {
       return null
     }
     this.subject = subject
+    // Since 0.2.2-rc.1 declarations come from step admission, not the
+    // prompt assembly waterfall. Deny before evaluating tool activators.
+    if (typeof ctx.tools?.resolve === 'function') ctx.effect(() => {
+      const tools = ctx.tools
+      const original = tools.resolve
+      const resolve = async (context) => {
+        const agent = subject(context.agent)
+        if (agent && this.modes.get(agent.id) !== 'execute') {
+          context.signal.throwIfAborted()
+          return { view: () => new Map(), dispose: () => {} }
+        }
+        return original.call(tools, context)
+      }
+      tools.resolve = resolve
+      return () => {
+        if (tools.resolve === resolve) tools.resolve = original
+      }
+    }, 'chat-first: step tool admission')
     ctx.on('system-prompt/assemble', async (assembly, context, next) => {
       const result = await next()
-      const agent = subject(context.agent || context.scope)
-      return agent ? filterAssembly(result, this.modes.get(agent.id), (context.agent || context.scope).session.seq) : result
+      const caller = context.agent || context.scope
+      const agent = subject(caller)
+      return agent ? filterAssembly(result, this.modes.get(agent.id), caller.session.seq) : result
     }, { prepend: true })
     ctx.on('agent/pre-step', async (payload, next) => {
       const result = await next()

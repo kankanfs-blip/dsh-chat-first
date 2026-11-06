@@ -2,19 +2,19 @@
 
 [English](MAC-SETUP.en.md) · [普通用户安装](INSTALL.md)
 
-目标：安装或升级公开版 0.1.0，让 DSH 同一会话支持“讨论 ↔ 执行”。不要迁移 Windows 用户数据、历史 profile 或密钥。
+目标：安装或升级公开版 0.1.1，让 DSH 同一会话支持“讨论 ↔ 执行”。不要迁移 Windows 用户数据、历史 profile 或密钥。
 
 先模拟普通用户按安装指南操作。遇到问题报告原始错误，修发行包；不要靠手改 profile 绕过问题。这里的诊断交接不代表其他用户必须安装 Codex 才能用插件。
 
 ## 先辨认现状
 
-1. 查看这台 Mac 的 DSH 桌面版本。当前包仅支持 **0.2.1-rc.5**。若版本不同，先按本机实际接口评估兼容性；不要删除版本限制或强装，也不要为了插件自行降级应用。
+1. 查看这台 Mac 的 DSH 桌面版本。当前包仅支持 **0.2.2-rc.1**。若版本不同，先按本机实际接口评估兼容性；不要删除版本限制或强装，也不要为了插件自行降级应用。
 2. 检查是否已装 `dsh-chat-first` 或早期 `@local/dsh-qa-preset`。已有本地版时先说明差异，保留原配置与会话；不要同时启用两个针对同一预设的旧实现。
 3. 将源码包解压到固定用户目录，例如 `~/Developer/dsh-chat-first`，确认里面有 `package.json`、`index.mjs`、`client.js`。源码不需要 `npm install` 或构建，不安装额外模型。
 
 ## 安装进桌面版
 
-优先通过桌面插件管理器安装或升级 `dsh-chat-first@0.1.0`；镜像未同步时使用官方源 `https://registry.npmjs.org/`。只有本地开发或诊断才需要解压源码。
+优先通过桌面插件管理器安装或升级 `dsh-chat-first@0.1.1`；镜像未同步时使用官方源 `https://registry.npmjs.org/`。只有本地开发或诊断才需要解压源码。
 
 **不要**用 `dsh plugin --profile web ...` 冒充桌面安装；CLI 与桌面是不同 profile。不要覆盖 `~/.dsh/profiles/desktop` 的整个 package.json/patch。若桌面入口受阻，读取本机安装版的 plugin-manager 文档并使用其正式事务接口；证据不足就保留成果、报告具体入口缺口。
 

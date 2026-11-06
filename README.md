@@ -26,12 +26,12 @@ A useful rhythm is **discuss the question → enable tools to research → close
 
 ## Install or update
 
-**Current release: `0.1.0`. DSH compatibility: `0.2.1-rc.5` only.** This is the first regular 0.x release, following Windows and Mac minimum acceptance of alpha. The core mechanism is retained; 0.1.0 refines response instructions. Read the [exact evidence and limits](VALIDATION.en.md).
+**Current release: `0.1.1`. DSH compatibility: `0.2.2-rc.1` only.** This release restores Chat First on DSH 0.2.2-rc.1 after the host upgrade. For DSH 0.2.1-rc.5, use Chat First 0.1.0. Read the [exact evidence and limits](VALIDATION.en.md).
 
 In DSH Desktop, open **Plugins → Add plugin → Install third-party plugin**:
 
-- npm: `dsh-chat-first@0.1.0`
-- GitHub: `github:kankanfs/dsh-chat-first#v0.1.0`
+- npm: `dsh-chat-first@0.1.1`
+- GitHub: `github:kankanfs/dsh-chat-first#v0.1.1`
 - [Releases and downloads](https://github.com/kankanfs/dsh-chat-first/releases)
 
 If a mirror has not synced the release, select the custom registry `https://registry.npmjs.org/`. Existing users should update the same plugin through Desktop's plugin manager; no need to delete conversation state. Restart DSH if requested. See [installation and rollback](INSTALL.en.md).
@@ -53,8 +53,8 @@ That creates room to talk without triggering more operations. It does not make t
 
 ## Compatibility and data
 
-- Alpha's minimum loop passed on one Windows PC and one M5 MacBook Air: discussion → actual tool use → discussion → full quit/relaunch and another actual tool use. 0.1.0 passed core and installed-host offline protocol regression on Windows; its revised wording has not been evaluated in a controlled live-model comparison.
-- Only DSH `0.2.1-rc.5` is declared compatible. Linux and other host versions remain unverified.
+- Alpha's minimum loop passed on one Windows PC and one M5 MacBook Air: discussion → actual tool use → discussion → full quit/relaunch and another actual tool use. 0.1.1 passed installed-host offline regression and isolated interface checks on Windows with DSH 0.2.2-rc.1.
+- Only DSH `0.2.2-rc.1` is declared compatible. Linux and other host versions remain unverified.
 - The independent `chat-first` preset and `chatFirstMode` service do not claim `qa` or `standard`.
 - Per-conversation mode files live under `$DSH_HOME/plugins/dsh-chat-first/sessions/` (normally `~/.dsh/plugins/dsh-chat-first/sessions/`). They contain a version and mode; filenames encode conversation identifiers. Missing/corrupt state defaults to discussion. Uninstalling retains state.
 - Returning to discussion does not undo completed work or stop independent background jobs. Host permissions still apply.

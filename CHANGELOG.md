@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 — 2026-11-06
+
+- 适配 DSH 0.2.2-rc.1 的每轮工具准入。讨论时不声明工具，执行时沿用宿主的工具选择。
+- 移除该宿主已取消的独立子代理列表入口。已有会话、预设标识和模式数据沿用。
+- 通过 DSH 插件详情的版本更新入口升级。旧宿主 DSH 0.2.1-rc.5 可继续使用插件 0.1.0。
+
+English: adapt tool admission and preset composition for DSH 0.2.2-rc.1. Use the installed plugin’s Update action. Existing conversation and mode data are reused. Use Chat First 0.1.0 on DSH 0.2.1-rc.5.
+
 ## 0.1.0 — 2026-11-05
 
 - 首个非 alpha 的 0.x 发布；仍仅声明兼容 DSH 0.2.1-rc.5。
